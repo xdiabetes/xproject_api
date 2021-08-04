@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 from rest_framework.authtoken.models import Token
 
+from location.models import Region
 from user_profile.helpers import generate_code
 
 """
@@ -16,24 +17,6 @@ Page 5
 Page 6
 ----------------------------------
 - Diabetes Therapy:"""
-
-
-class City(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return "%d - %s" % (self.pk, self.name)
-
-
-class Neighbor(models.Model):
-    name = models.CharField(max_length=255)
-    city = models.ForeignKey(City, related_name="locations", on_delete=models.PROTECT)
-
-    lat = models.FloatField(blank=True, null=True)
-    lon = models.FloatField(blank=True, null=True)
-
-    def __str__(self):
-        return "%d - %s / %s" % (self.pk, self.name, self.city.name)
 
 
 class UserProfile(models.Model):
@@ -63,7 +46,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=1, choices=gender_types, blank=True, null=True)
     diabetes_type = models.CharField(max_length=1, choices=diabetes_types, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
-    location = models.ForeignKey(Neighbor, on_delete=models.PROTECT, blank=True, null=True)
+    location = models.ForeignKey(Region, on_delete=models.PROTECT, blank=True, null=True)
 
     phone_number = models.CharField(max_length=12, validators=[
         RegexValidator(

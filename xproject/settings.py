@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'user_profile.apps.UserProfileConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'location.apps.LocationConfig',
+    'django_filters',
+
 ]
 
 REST_FRAMEWORK = {
