@@ -58,7 +58,7 @@ class GetUserInfoView(generics.GenericAPIView):
 
     @staticmethod
     def get_verification_object(user_profile):
-        vo = UserProfilePhoneVerification.objects.last_not_expired_verification_object(user_profile=user_profile)
+        vo = UserProfilePhoneVerification.objects.last_valid_verification_object_of(user_profile=user_profile)
         return vo
 
     @staticmethod

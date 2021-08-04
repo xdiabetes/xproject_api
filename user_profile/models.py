@@ -85,7 +85,7 @@ class UserProfilePhoneVerificationObjectManager(models.Manager):
     def _get_or_create(self, **kwargs):
         created = False
         user_profile = kwargs.get('user_profile')
-        verification_object = self.last_not_expired_verification_object(user_profile)
+        verification_object = self.last_valid_verification_object_of(user_profile)
         if not verification_object:
             # create a new object if none exists
             verification_object = UserProfilePhoneVerification(**kwargs)
@@ -113,7 +113,7 @@ class UserProfilePhoneVerificationObjectManager(models.Manager):
             }
 
     @staticmethod
-    def last_not_expired_verification_object(user_profile):
+    def last_valid_verification_object_of(user_profile):
         time = timezone.now() - timezone.timedelta(minutes=UserProfilePhoneVerification.RETRY_TIME)
         # select the latest valid user profile phone verification object
         user_profile_phone = UserProfilePhoneVerification.objects.order_by('-create_date'). \
