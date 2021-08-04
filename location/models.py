@@ -23,6 +23,10 @@ class Region(models.Model):
     lat = models.FloatField(blank=True, null=True)
     lon = models.FloatField(blank=True, null=True)
 
+    @property
+    def country(self):
+        return self.city.country
+
     def __str__(self):
         return "%d - %s / %s" % (self.pk, self.name, self.city.name)
 
