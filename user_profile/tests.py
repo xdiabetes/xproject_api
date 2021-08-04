@@ -1,9 +1,10 @@
+import datetime
 import json
 
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from user_profile.models import UserProfilePhoneVerification
+from user_profile.models import UserProfilePhoneVerification, UserProfile
 from django.utils.translation import gettext as _
 
 
@@ -160,7 +161,11 @@ class UserCProfileTestCase(APITestCase):
             'phone_number': '09303131503',
             'first_name': 'Ali',
             'last_name': 'Parvizi',
-            'national_code': '2282096045'
+            'nick_name': 'Sina',
+            'gender': UserProfile.MALE,
+            'diabetes_type': UserProfile.D_TYPE_1,
+            'birth_date': datetime.datetime.now().date(),
+
         }
         response = self.client.put(update_user_profile_info, data=new_user_profile_data)
         api_response = json.loads(response.content)

@@ -7,15 +7,63 @@ from rest_framework.authtoken.models import Token
 
 from user_profile.helpers import generate_code
 
+"""
+- Date of Birth (in widget)
+- Job -> category, subcategory *(Milad)*
+Page 5
+----------------------------------
+- Location (City, Neighbor Precise Location)
+Page 6
+----------------------------------
+- Diabetes Therapy:"""
+
+
+class City(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return "%d - %s" % (self.pk, self.name)
+
+
+class Neighbor(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.ForeignKey(City, related_name="locations", on_delete=models.PROTECT)
+
+    lat = models.FloatField(blank=True, null=True)
+    lon = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return "%d - %s / %s" % (self.pk, self.name, self.city.name)
+
 
 class UserProfile(models.Model):
+    MALE = '0'
+    FEMALE = '1'
+    OTHER_GENDER = '2'
+
+    D_TYPE_1 = '0'
+    D_TYPE_2 = '1'
+
+    diabetes_types = (
+        (D_TYPE_1, _("Diabetes type 1")),
+        (D_TYPE_2, _("Diabetes type 2")),
+    )
+
+    gender_types = (
+        (MALE, _("Male")),
+        (FEMALE, _("Female")),
+        (OTHER_GENDER, _("Other Gender")),
+    )
+
     user = models.OneToOneField(User, related_name="user_profile", on_delete=models.CASCADE)
 
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
-
-    card_number = models.CharField(max_length=255, blank=True, null=True)
-    sheba_number = models.CharField(max_length=255, blank=True, null=True)
+    nick_name = models.CharField(max_length=255, blank=True, null=True)
+    gender = models.CharField(max_length=1, choices=gender_types, blank=True, null=True)
+    diabetes_type = models.CharField(max_length=1, choices=diabetes_types, blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
+    location = models.ForeignKey(Neighbor, on_delete=models.PROTECT, blank=True, null=True)
 
     phone_number = models.CharField(max_length=12, validators=[
         RegexValidator(
@@ -24,7 +72,6 @@ class UserProfile(models.Model):
             code='invalid_phone_number'
         ),
     ], unique=True)
-    national_code = models.CharField(max_length=15, blank=True, null=True)
 
     PENDING = '0'
     VERIFIED = '1'

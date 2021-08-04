@@ -11,9 +11,8 @@ from user_profile.models import UserProfile, UserProfilePhoneVerification
 class UserProfileBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['pk', 'first_name', 'last_name', 'phone_number', 'national_code', 'verification_status', 'token',
-                  'sheba_number',
-                  'card_number']
+        fields = ['pk', 'first_name', 'last_name', 'phone_number', 'verification_status', 'token',
+                  'nick_name', 'gender', 'diabetes_type', 'birth_date', 'location']
 
 
 class UserProfileGetOrCreateSerializerUsingPhoneNumberSerializer(serializers.ModelSerializer):
