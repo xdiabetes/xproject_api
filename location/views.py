@@ -3,7 +3,8 @@ from rest_framework import generics
 from rest_framework import filters
 
 from location.models import Country, City, Region
-from location.serializers import CountryBaseSerializer, CityBaseSerializer, RegionBaseSerializer
+from location.serializers import CountryBaseSerializer, CityBaseSerializer, RegionBaseSerializer, \
+    RegionDetailedSerializer
 
 
 class CountryListView(generics.ListAPIView):
@@ -39,3 +40,11 @@ class RegionListView(generics.ListAPIView):
     filterset_fields = ['city', 'city__country']
     search_fields = ['city__country__name', 'name', 'city__name']
 
+
+class RegionDetailedListView(RegionListView):
+    """
+    List of regions with detailed city and country data
+    """
+
+    serializer_class = RegionDetailedSerializer
+    

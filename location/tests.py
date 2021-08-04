@@ -116,6 +116,22 @@ class UserCProfileTestCase(APITestCase):
             'lon': region.lon
         } for region in self.regions]
 
+    def get_regions_detailed_serialized(self):
+        return [{
+            'pk': region.pk,
+            'name': region.name,
+            'city': {
+                'pk': region.city.pk,
+                'name': region.city.name,
+                'country': {
+                    'pk': region.city.country.pk,
+                    'name': region.city.country.name
+                }
+            },
+            'lat': region.lat,
+            'lon': region.lon
+        } for region in self.regions]
+
     def test_list_countries(self):
         endpoint = reverse('location:country-list')
         response = self.client.get(endpoint)
@@ -169,6 +185,14 @@ class UserCProfileTestCase(APITestCase):
         response_data = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertListEqual(response_data, self.get_regions_serialized())
+
+    def test_list_regions_detailed(self):
+        endpoint = reverse('location:region-detailed-list')
+        response = self.client.get(endpoint)
+
+        response_data = json.loads(response.content)
+        self.assertEqual(response.status_code, 200)
+        self.assertListEqual(response_data, self.get_regions_detailed_serialized())
 
     def test_list_regions_filter_city(self):
         endpoint = reverse('location:region-list')
