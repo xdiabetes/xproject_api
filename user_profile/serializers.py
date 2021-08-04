@@ -3,16 +3,19 @@ from django.core.validators import RegexValidator
 from rest_framework import serializers
 from django.utils.translation import gettext as _
 
+from location.serializers import RegionDetailedSerializer
 from xproject.secret import DEBUG
 from user_profile.helpers import send_verification_code
 from user_profile.models import UserProfile, UserProfilePhoneVerification
 
 
 class UserProfileBaseSerializer(serializers.ModelSerializer):
+    location_detailed = RegionDetailedSerializer(read_only=True)
+
     class Meta:
         model = UserProfile
         fields = ['pk', 'first_name', 'last_name', 'phone_number', 'verification_status', 'token',
-                  'nick_name', 'gender', 'diabetes_type', 'birth_date', 'location']
+                  'nick_name', 'gender', 'diabetes_type', 'birth_date', 'location', 'location_detailed']
 
 
 class UserProfileGetOrCreateSerializerUsingPhoneNumberSerializer(serializers.ModelSerializer):

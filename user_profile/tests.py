@@ -4,6 +4,7 @@ import json
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
+from location.models import Region, City, Country
 from user_profile.models import UserProfilePhoneVerification, UserProfile
 from django.utils.translation import gettext as _
 
@@ -157,6 +158,9 @@ class UserCProfileTestCase(APITestCase):
         api_response = json.loads(response.content)
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + api_response.get('token'))
+
+        region = self.create_region()
+
         new_user_profile_data = {
             'phone_number': '09303131503',
             'first_name': 'Ali',
@@ -165,10 +169,22 @@ class UserCProfileTestCase(APITestCase):
             'gender': UserProfile.MALE,
             'diabetes_type': UserProfile.D_TYPE_1,
             'birth_date': datetime.datetime.now().date(),
-
+            'location': region.pk,
         }
         response = self.client.put(update_user_profile_info, data=new_user_profile_data)
         api_response = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
         self.assertGreaterEqual(api_response.keys(), new_user_profile_data.keys())
+
+    @staticmethod
+    def create_region():
+        return Region.objects.create(
+            **{
+                'name': "Parse",
+                'city': City.objects.create(**{
+                    'country': Country.objects.create(name="Iran"),
+                    'name': 'shiraz'
+                })
+            }
+        )
