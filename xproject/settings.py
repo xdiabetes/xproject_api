@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'location.apps.LocationConfig',
     'django_filters',
-
+    'drf_yasg',
 ]
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
