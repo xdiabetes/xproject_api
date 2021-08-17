@@ -115,7 +115,8 @@ class UserProfilePhoneVerificationObjectManager(models.Manager):
     @staticmethod
     def last_valid_verification_object_of(user_profile):
         time = timezone.now() - timezone.timedelta(minutes=UserProfilePhoneVerification.RETRY_TIME)
-        # select the latest valid user profile phone verification object
+
+        # only the last object that is not expired might be valid
         user_profile_phone = UserProfilePhoneVerification.objects.order_by('-create_date'). \
             filter(create_date__gte=time,
                    user_profile__phone_number=user_profile.phone_number) \
