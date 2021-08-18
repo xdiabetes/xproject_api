@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'location.apps.LocationConfig',
     'django_filters',
     'drf_yasg',
+    'diabo.apps.DiaboConfig',
 ]
 
 REST_FRAMEWORK = {
