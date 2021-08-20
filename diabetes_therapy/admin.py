@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(TherapyCategory)
+admin.site.register(FixTherapy)
+admin.site.register(MixTherapy)
+admin.site.register(WithMealTherapy)

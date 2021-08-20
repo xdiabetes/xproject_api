@@ -1,7 +1,9 @@
 from django.db import models
 
+from user_profile.models import UserProfile
 
-class TherapyType(models.Model):
+
+class TherapyCategory(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -15,8 +17,9 @@ class Therapy(models.Model):
 
     therapy_modes = [MIX, FIX, WITH_MEAL]
 
+    order = models.IntegerField(default=0)
     name = models.CharField(max_length=255)
-    type = models.ForeignKey(TherapyType, related_name="therapy_%(class)s", on_delete=models.CASCADE)
+    type = models.ForeignKey(TherapyCategory, related_name="therapy_%(class)s", on_delete=models.CASCADE)
 
     @property
     def mode(self):
