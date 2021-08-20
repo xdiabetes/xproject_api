@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.translation import gettext as _
+
 
 class TherapyCategory(models.Model):
     name = models.CharField(max_length=255)
@@ -12,11 +14,20 @@ class Therapy(models.Model):
     FIX = '1'
     WITH_MEAL = '2'
 
+    PUBLIC = '0'
+    PRIVATE = '1'
+
     therapy_modes = [MIX, FIX, WITH_MEAL]
+    visibility_choices = (
+        (PUBLIC, _("Public")),
+        (PRIVATE, _("Private"))
+    )
 
     order = models.IntegerField(default=0)
     name = models.CharField(max_length=255)
     type = models.ForeignKey(TherapyCategory, related_name="therapy_%(class)s", on_delete=models.CASCADE)
+
+    visibility = models.CharField(max_length=1, choices=visibility_choices, default=PRIVATE)
 
     @property
     def mode(self):
