@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'diabetes_therapy.apps.DiabetesTherapyConfig',
+    'diabo.apps.DiaboConfig',
 ]
 
 REST_FRAMEWORK = {

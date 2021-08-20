@@ -1,8 +1,5 @@
 from django.db import models
 
-from user_profile.models import UserProfile
-
-
 class TherapyCategory(models.Model):
     name = models.CharField(max_length=255)
 
