@@ -5,10 +5,6 @@ from diabo.serializers import DiaboProfileRetrieveSerializer, DiaboProfileUpdate
 from user_profile.permissions import IsLoggedIn, IsSuperUser
 
 
-class DiaboProfileCreate(generics.CreateAPIView):
-    pass
-
-
 class DiaboProfileRetrieve(generics.RetrieveUpdateAPIView):
     permission_classes = (IsLoggedIn,)
     serializer_class = DiaboProfileRetrieveSerializer
