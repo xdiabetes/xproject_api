@@ -15,7 +15,7 @@ class UserProfileBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['pk', 'first_name', 'last_name', 'phone_number', 'verification_status', 'token',
-                  'nick_name', 'gender', 'diabetes_type', 'birth_date', 'location', 'location_detailed']
+                  'nick_name', 'gender', 'birth_date', 'location', 'location_detailed']
 
 
 class UserProfileGetOrCreateSerializerUsingPhoneNumberSerializer(serializers.ModelSerializer):

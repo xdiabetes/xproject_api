@@ -167,7 +167,6 @@ class UserCProfileTestCase(APITestCase):
             'last_name': 'Parvizi',
             'nick_name': 'Sina',
             'gender': UserProfile.MALE,
-            'diabetes_type': UserProfile.D_TYPE_1,
             'birth_date': datetime.datetime.now().date(),
             'location': region.pk,
         }

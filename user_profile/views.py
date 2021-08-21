@@ -11,8 +11,6 @@ from django.utils.translation import gettext as _
 class UserProfileSendCodeView(generics.CreateAPIView):
     """
     Send User Profile SMS Code
-
-
     this endpoint create a pending user profile.
     """
 

@@ -8,29 +8,11 @@ from rest_framework.authtoken.models import Token
 from location.models import Region
 from user_profile.helpers import generate_code
 
-"""
-- Date of Birth (in widget)
-- Job -> category, subcategory *(Milad)*
-Page 5
-----------------------------------
-- Location (City, Neighbor Precise Location)
-Page 6
-----------------------------------
-- Diabetes Therapy:"""
-
 
 class UserProfile(models.Model):
     MALE = '0'
     FEMALE = '1'
     OTHER_GENDER = '2'
-
-    D_TYPE_1 = '0'
-    D_TYPE_2 = '1'
-
-    diabetes_types = (
-        (D_TYPE_1, _("Diabetes type 1")),
-        (D_TYPE_2, _("Diabetes type 2")),
-    )
 
     gender_types = (
         (MALE, _("Male")),
@@ -44,7 +26,6 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=255, blank=True, null=True)
     nick_name = models.CharField(max_length=255, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=gender_types, blank=True, null=True)
-    diabetes_type = models.CharField(max_length=1, choices=diabetes_types, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     location = models.ForeignKey(Region, on_delete=models.PROTECT, blank=True, null=True)
 
