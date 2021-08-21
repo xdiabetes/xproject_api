@@ -1,12 +1,23 @@
 import datetime
 import json
 
+from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
 from location.models import Region, City, Country
 from user_profile.models import UserProfilePhoneVerification, UserProfile
 from django.utils.translation import gettext as _
+
+
+def create_superuser_user_profile(phone_number):
+    _user = User.objects.create(username=phone_number, is_superuser=True)
+    return UserProfile.objects.create(user=_user, phone_number=phone_number)
+
+
+def create_normal_user_profile(phone_number):
+    _user = User.objects.create(username=phone_number, is_superuser=False)
+    return UserProfile.objects.create(user=_user, phone_number=phone_number)
 
 
 class UserCProfileTestCase(APITestCase):

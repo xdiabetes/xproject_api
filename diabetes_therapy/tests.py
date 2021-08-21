@@ -7,23 +7,14 @@ from django.urls import reverse
 
 from diabetes_therapy.models import TherapyCategory, Therapy
 from user_profile.models import UserProfile
+from user_profile.tests import create_superuser_user_profile, create_normal_user_profile
 
 
-class DiaboTests(APITestCase):
-
-    @staticmethod
-    def create_superuser_user_profile(phone_number):
-        _user = User.objects.create(username=phone_number, is_superuser=True)
-        return UserProfile.objects.create(user=_user, phone_number=phone_number)
-
-    @staticmethod
-    def create_normal_user_profile(phone_number):
-        _user = User.objects.create(username=phone_number, is_superuser=False)
-        return UserProfile.objects.create(user=_user, phone_number=phone_number)
+class DiabetesCategoriesTests(APITestCase):
 
     def setUp(self) -> None:
-        self.superuser = self.create_superuser_user_profile(phone_number="09017938091")
-        self.normal_user = self.create_normal_user_profile(phone_number="09212422065")
+        self.superuser = create_superuser_user_profile(phone_number="09017938091")
+        self.normal_user = create_normal_user_profile(phone_number="09212422065")
         self.therapy_categories = []
 
         self.create_sample_therapy_categories()

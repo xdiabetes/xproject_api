@@ -28,6 +28,6 @@ def kavenegar_send_sms(template, tokens, to):
 
 def send_verification_code(phone_number, code):
     if settings.DEBUG:
-        print("Sending: %s to %s" % (code, phone_number))
+        pass
     else:
         kavenegar_send_sms('verify-abee', {'token': str(code)}, phone_number)

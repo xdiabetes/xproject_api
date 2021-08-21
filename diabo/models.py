@@ -21,3 +21,10 @@ class DiaboProfile(models.Model):
 
     diabetes_type = models.CharField(max_length=1, choices=diabetes_types, blank=True, null=True)
     job = models.ForeignKey(Job, on_delete=models.PROTECT, blank=True, null=True)
+
+    @staticmethod
+    def get_or_create_from_user_profile(user_profile):
+        try:
+            return DiaboProfile.objects.get(user_profile=user_profile)
+        except DiaboProfile.DoesNotExist:
+            return DiaboProfile.objects.create(user_profile=user_profile)
