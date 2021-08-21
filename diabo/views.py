@@ -1,7 +1,9 @@
 from rest_framework import generics
 
-from diabo.models import DiaboProfile, Job
-from diabo.serializers import DiaboProfileRetrieveSerializer, DiaboProfileUpdateSerializer, JobBaseSerializer
+from diabo.models import DiaboProfile
+from job.models import Job
+from diabo.serializers import DiaboProfileRetrieveSerializer, DiaboProfileUpdateSerializer
+from job.serializers import JobBaseSerializer
 from user_profile.permissions import IsLoggedIn, IsSuperUser
 
 

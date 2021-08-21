@@ -1,12 +1,8 @@
 from django.db import models
 
+from job.models import Job
 from user_profile.models import UserProfile
 from django.utils.translation import gettext as _
-
-
-class Job(models.Model):
-    title = models.CharField(max_length=255)
-    parent = models.ForeignKey("Job", related_name="jobs", on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class DiaboProfile(models.Model):

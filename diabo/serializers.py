@@ -1,13 +1,8 @@
 from rest_framework import serializers
 
-from diabo.models import DiaboProfile, Job
+from diabo.models import DiaboProfile
+from job.serializers import JobBaseSerializer
 from user_profile.serializers import UserProfileBaseSerializer
-
-
-class JobBaseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Job
-        fields = ['pk', 'title', 'parent']
 
 
 class DiaboProfileBaseSerializer(serializers.ModelSerializer):

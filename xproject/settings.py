@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'diabetes_therapy.apps.DiabetesTherapyConfig',
     'diabo.apps.DiaboConfig',
+    'job.apps.JobConfig',
 ]
 
 REST_FRAMEWORK = {
