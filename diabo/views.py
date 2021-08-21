@@ -1,8 +1,8 @@
 from rest_framework import generics
 
-from diabo.models import DiaboProfile
-from diabo.serializers import DiaboProfileRetrieveSerializer, DiaboProfileUpdateSerializer
-from user_profile.permissions import IsLoggedIn
+from diabo.models import DiaboProfile, Job
+from diabo.serializers import DiaboProfileRetrieveSerializer, DiaboProfileUpdateSerializer, JobBaseSerializer
+from user_profile.permissions import IsLoggedIn, IsSuperUser
 
 
 class DiaboProfileCreate(generics.CreateAPIView):
@@ -25,3 +25,22 @@ class DiaboProfileUpdate(generics.RetrieveUpdateAPIView):
     def get_object(self):
         user_profile = self.request.user.user_profile
         return DiaboProfile.get_or_create_from_user_profile(user_profile)
+
+
+class JobCreateView(generics.CreateAPIView):
+    permission_classes = (IsSuperUser,)
+    serializer_class = JobBaseSerializer
+
+
+class JobUpdateView(generics.RetrieveUpdateAPIView):
+    permission_classes = (IsSuperUser,)
+    serializer_class = JobBaseSerializer
+
+    queryset = Job.objects.all()
+
+    lookup_field = 'pk'
+    lookup_url_kwarg = 'job_id'
+
+class JobListView(generics.ListAPIView):
+    serializer_class = JobBaseSerializer
+    queryset = Job.objects.all()

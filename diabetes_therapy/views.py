@@ -2,8 +2,8 @@ from rest_framework import generics
 
 from diabetes_therapy.helpers import therapy_serializers
 from diabetes_therapy.models import TherapyCategory
-from diabetes_therapy.permissions import IsSuperUser
 from diabetes_therapy.serializes import TherapyTypeBaseSerializer
+from user_profile.permissions import IsSuperUser
 
 
 class TherapyCategoryCreateView(generics.CreateAPIView):
