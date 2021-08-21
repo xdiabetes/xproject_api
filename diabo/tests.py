@@ -29,7 +29,7 @@ class DiaboProfileTests(APITestCase):
     def get_sample_diabo_profile():
         return DiaboProfile.objects.create(**{
             'user_profile': create_normal_user_profile(phone_number="09017938091"),
-            'diabetes_type': DiaboProfile.D_TYPE_2,
+            'diabetes_type': DiaboProfile.D_TYPE_1,
             'job': Job.objects.create(title="Programmer")
         })
 
@@ -73,6 +73,18 @@ class DiaboProfileTests(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, json.dumps(self.diabo_user_profile_serialized()))
 
-    def test_update_diabo_profile(self):
+    def test_update_diabo_profile_diabetes_type(self):
+        self.do_login()
+        endpoint = reverse('diabo:profile_update')
+        response = self.client.patch(endpoint, data={'diabetes_type': DiaboProfile.D_TYPE_2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content).get('diabetes_type', None), DiaboProfile.D_TYPE_2)
+
+
+
+
+class JobsTests(APITestCase):
+
+    def test_create_job(self):
         pass
 

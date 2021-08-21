@@ -19,3 +19,8 @@ class DiaboProfileBaseSerializer(serializers.ModelSerializer):
 class DiaboProfileRetrieveSerializer(DiaboProfileBaseSerializer):
     user_profile = UserProfileBaseSerializer()
     job = JobBaseSerializer()
+
+
+class DiaboProfileUpdateSerializer(DiaboProfileBaseSerializer):
+    pass
+
