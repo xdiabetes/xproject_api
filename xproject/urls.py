@@ -40,5 +40,6 @@ urlpatterns = [
     path('api/v1/diabetes_type/', include('diabetes_therapy.urls')),
     path('api/v1/job/', include('job.urls')),
     path('api/v1/diabo/', include('diabo.urls')),
+    path('api/v1/walking_tracker/', include('walking_tracker.urls')),
     path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0)),
 ]
